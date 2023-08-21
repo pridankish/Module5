@@ -9,7 +9,7 @@ int len,temp;
  
 char *msg;
  
-ssize_t read_proc(struct file *filp,char *buf,size_t count,loff_t *offp )
+ssize_t read_proc(struct file *filp, char *buf, size_t count, loff_t *offp )
 {
     if(count>temp)
     {
@@ -23,7 +23,7 @@ ssize_t read_proc(struct file *filp,char *buf,size_t count,loff_t *offp )
     return count;
 }
  
-ssize_t write_proc(struct file *filp,const char *buf,size_t count,loff_t *offp)
+ssize_t write_proc(struct file *filp, const char *buf, size_t count, loff_t *offp)
 {
     copy_from_user(msg,buf,count);
     len=count;
@@ -31,11 +31,11 @@ ssize_t write_proc(struct file *filp,const char *buf,size_t count,loff_t *offp)
     return count;
 }
  
-struct file_operations proc_fops = {
-read:
-    read_proc,
-write:
-    write_proc
+struct proc_ops proc_fops = {
+	proc_read:
+   		read_proc,
+	proc_write:
+    	write_proc
 };
  
 void create_new_proc_entry(void)  //use of void for no arguments is compulsory now
